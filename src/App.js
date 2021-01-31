@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from "react";
+import theme from "./theme";
+import { useRoutes } from "react-router-dom";
+import { ThemeProvider } from "@material-ui/core";
+import GlobalStyles from "./components/GlobalStyles";
+import routes from "./routes";
+import ApolloClient from "apollo-boost";
+import { ApolloProvider, InMemoryCache } from "@apollo/react-hooks";
+import Loading from "./components/Loading";
 
-function App() {
+const App = () => {
+  const routing = useRoutes(routes);
+  const client = new ApolloClient({
+    uri: "https://graphql-pokeapi.vercel.app/api/graphql",
+    cache: new InMemoryCache(),
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Suspense fallback={<Loading />}>
+        <ApolloProvider client={client}>
+          <GlobalStyles />
+          {routing}
+        </ApolloProvider>
+      </Suspense>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
