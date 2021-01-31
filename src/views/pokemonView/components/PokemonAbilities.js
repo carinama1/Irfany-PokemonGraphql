@@ -24,6 +24,7 @@ const Card = styled.div`
     padding: 10px 10px 32px 0px;
   }
 `;
+
 const PokemonName = styled.div`
   width: 320px;
   box-shadow: 0 2px 6px 0 rgba(49, 53, 59, 0.4);
@@ -54,7 +55,7 @@ const PokemonAbilities = ({ abilities, moves }) => {
       <Card>
         {abilities &&
           abilities.map(({ ability }, index) => {
-            return <Tag ket={`item-${index}`}>{capitalize(ability.name)}</Tag>;
+            return <Tag key={`item-${index}`}>{capitalize(ability.name)}</Tag>;
           })}
       </Card>
       <PokemonName style={{ marginTop: 0 }}>Moves</PokemonName>
@@ -62,7 +63,7 @@ const PokemonAbilities = ({ abilities, moves }) => {
       <Card>
         {moves &&
           moves.map(({ move }, index) => {
-            return <Tag ket={`item-${index}`}>{capitalize(move.name)}</Tag>;
+            return <Tag key={`item-${index}`}>{capitalize(move.name)}</Tag>;
           })}
       </Card>
     </CardContainer>

@@ -28,7 +28,7 @@ const TopBar = ({ className, ...rest }) => {
             <img
               style={{ height: "70px" }}
               alt="Catch'Em"
-              src="https://fontmeme.com/temporary/efc0e970b23e9b0657a8af95a9f4518b.png"
+              src="/static/images/main_icon.png"
             ></img>
           </RouterLink>
           <RouterLink to="/my-pokemon-list">

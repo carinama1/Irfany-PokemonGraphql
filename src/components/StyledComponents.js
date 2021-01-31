@@ -106,8 +106,8 @@ export const PokeBald = ({ children }) => {
 
 export const PokeBall = ({ children }) => {
   const PokeBallStyle = styled.div`
-    width: 200px;
-    height: 200px;
+    width: 160px;
+    height: 160px;
     display: inline-block;
     margin: 20px 20px 16px;
     position: relative;
