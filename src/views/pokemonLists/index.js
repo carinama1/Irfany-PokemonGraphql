@@ -7,7 +7,7 @@ import PokemonCard from "./components/PokemonCard";
 import { ListStyle } from "./_listStyle";
 import { PokeBald } from "../../components/StyledComponents";
 import Loading from "../../components/Loading";
-import { retrievePokemonRequest } from "../../localbase";
+import { Service } from "../../localbase/dbServices";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,9 +39,13 @@ const ListView = () => {
   }, []);
 
   const getAllPokemon = () => {
-    retrievePokemonRequest().then((data) => {
-      setMyDbPokemon(data);
-    });
+    Service.getMyPokemons()
+      .then((data) => {
+        setMyDbPokemon(data || []);
+      })
+      .catch((err) => {
+        console.log({ err });
+      });
   };
 
   const { data, error, loading, fetchMore } = useQuery(GET_POKEMONS, {
@@ -50,18 +54,23 @@ const ListView = () => {
 
   useEffect(() => {
     const onCompleted = (data) => {
-      const newDbPokemons = [...data.pokemons.results];
-      const newNewDbPokemons = [];
-      newDbPokemons.map((newPoke) => {
-        const owned = myDbPokemon.filter((currPokemon) => {
-          return currPokemon.pokemon.name === newPoke.name;
-        }).length;
-        newNewDbPokemons.push({ ...newPoke, owned });
-      });
+      const newGqlPokemons = [...data.pokemons.results];
+      if (pokemons[0] && newGqlPokemons[0].name === pokemons[0].name) {
+        setIsLoading(false);
+      } else {
+        const newNewDbPokemons = [];
+        // eslint-disable-next-line
+        newGqlPokemons.map((newPoke) => {
+          const owned = myDbPokemon.filter((currPokemon) => {
+            return currPokemon.name === newPoke.name;
+          }).length;
+          newNewDbPokemons.push({ ...newPoke, owned });
+        });
 
-      const newPokemons = pokemons.concat(newNewDbPokemons);
-      setPokemons(newPokemons);
-      setIsLoading(false);
+        const newPokemons = pokemons.concat(newNewDbPokemons);
+        setPokemons(newPokemons);
+        setIsLoading(false);
+      }
     };
     const onError = (error) => {
       return <div>{error}</div>;
@@ -100,12 +109,7 @@ const ListView = () => {
         <Page className={classes.root} title="Pokemon List">
           <Fragment>
             <Container maxWidth="lg">
-              <Box style={{ marginBottom: 40 }}>
-                {/* <Typography variant="h1">
-            Total : {data && data.pokemons.count}
-          </Typography>
-          <Typography>Current : {pokemons.length}</Typography> */}
-              </Box>
+              <Box style={{ marginBottom: 40 }}></Box>
               <ListStyle>
                 {pokemons &&
                   pokemons.length >= 0 &&

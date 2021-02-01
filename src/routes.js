@@ -5,6 +5,7 @@ import NotFoundView from "./views/error/NotFoundView";
 import PokemonListView from "./views/pokemonLists";
 
 const LazyPokemonView = lazy(() => import("./views/pokemonView"));
+const LazyMyPokemonView = lazy(() => import("./views/myPokemonView"));
 const LazyMyPokemonListsView = lazy(() => import("./views/myPokemonLists"));
 
 const routes = [
@@ -15,6 +16,7 @@ const routes = [
       { path: "/", element: <PokemonListView /> },
       { path: "/pokemon-details", element: <LazyPokemonView /> },
       { path: "/my-pokemon-list", element: <LazyMyPokemonListsView /> },
+      { path: "/pokemon-details/m/:id", element: <LazyMyPokemonView /> },
       { path: "404", element: <NotFoundView /> },
       { path: "*", element: <Navigate to="/404" /> },
     ],

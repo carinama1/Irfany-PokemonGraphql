@@ -39,8 +39,6 @@ export const GET_POKEMON_BY_NAME = gql`
           name
         }
       }
-      message
-      status
     }
   }
 `;

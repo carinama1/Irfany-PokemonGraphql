@@ -9,7 +9,7 @@ import styled from "@emotion/styled";
 import Loading from "../../components/Loading";
 import PokemonAbilities from "./components/PokemonAbilities";
 import { PokeBall, StickyComponent } from "../../components/StyledComponents";
-import { addPokemonRequest } from "../../localbase";
+import CatchingPage from "./components/CatchingPage";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -35,6 +35,7 @@ const PokemonView = () => {
   const location = useLocation();
   const navigation = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
+  const [isCatching, setIsCatching] = useState(false);
   const [pokemon, setPokemon] = useState({});
 
   if (!location.state) {
@@ -46,12 +47,13 @@ const PokemonView = () => {
   });
 
   useEffect(() => {
-    const onCompleted = (data) => {
-      setPokemon(data.pokemon);
+    const onCompleted = (response) => {
+      const newPokemon = response.pokemon;
+      setPokemon(newPokemon);
       setIsLoading(false);
     };
     const onError = (error) => {
-      return navigation("/", { replace: true });
+      //
     };
     if (onCompleted || onError) {
       if (onCompleted && !loading && !error) {
@@ -63,17 +65,8 @@ const PokemonView = () => {
     // eslint-disable-next-line
   }, [loading, data, error]);
 
-  const catchPokemon = () => {
-    const { name, image } = location.state;
-    const myNewPokemon = { name, image };
-    addPokemonRequest(myNewPokemon)
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log({ err });
-      });
-    console.log("catch  : ", pokemon);
+  const seeMyPokemon = (id) => {
+    navigation(`/pokemon-details/m/${id}`);
   };
 
   return (
@@ -82,21 +75,28 @@ const PokemonView = () => {
       {isLoading && <Loading />}
       {!isLoading && (
         <Page className={classes.root} title={capitalize(location.state.name)}>
-          <PokemonHeader
-            name={pokemon.name}
-            image={location.state.image}
-            types={pokemon.types}
-          ></PokemonHeader>
-          <Divider />
-          <PokemonAbilities
-            abilities={pokemon.abilities}
-            moves={pokemon.moves}
-          />
-          <StickyComponent>
-            <div onClick={catchPokemon}>
-              <PokeBall />
-            </div>
-          </StickyComponent>
+          {isCatching && (
+            <CatchingPage seeMyPokemon={seeMyPokemon} pokemon={pokemon} />
+          )}
+          {!isCatching && (
+            <Fragment>
+              <PokemonHeader
+                name={pokemon.name}
+                image={pokemon.sprites.front_default}
+                types={pokemon.types}
+              ></PokemonHeader>
+              <Divider />
+              <PokemonAbilities
+                abilities={pokemon.abilities}
+                moves={pokemon.moves}
+              />
+              <StickyComponent>
+                <div onClick={() => setIsCatching(true)}>
+                  <PokeBall />
+                </div>
+              </StickyComponent>
+            </Fragment>
+          )}
         </Page>
       )}
     </Fragment>
