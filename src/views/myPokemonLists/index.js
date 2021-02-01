@@ -4,7 +4,7 @@ import Page from "../../components/Page";
 import PokemonCard from "./components/PokemonCard";
 import { ListStyle } from "./_listStyle";
 import Loading from "../../components/Loading";
-import { retrievePokemonRequest } from "../../localbase";
+import { Service } from "../../localbase/dbServices";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,15 +19,15 @@ const MyPokemonLists = () => {
   const [pokemons, setPokemons] = useState([]);
 
   useEffect(() => {
-    getAllPokemon();
+    Service.getMyPokemons()
+      .then((data) => {
+        setPokemons(data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log({ err });
+      });
   }, []);
-
-  const getAllPokemon = () => {
-    retrievePokemonRequest().then((data) => {
-      setPokemons(data);
-      setIsLoading(false);
-    });
-  };
 
   return (
     <Fragment>
@@ -40,7 +40,7 @@ const MyPokemonLists = () => {
               <ListStyle>
                 {pokemons &&
                   pokemons.length >= 0 &&
-                  pokemons.map(({ pokemon }, index) => {
+                  pokemons.map((pokemon, index) => {
                     return (
                       <Fragment key={`item-${index}`}>
                         <PokemonCard pokemon={pokemon} />

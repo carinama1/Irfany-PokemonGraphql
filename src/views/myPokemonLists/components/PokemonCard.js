@@ -67,13 +67,15 @@ const PokemonCard = ({ pokemon, ...rest }) => {
     <CardContainer>
       <Card
         onClick={() =>
-          navigation("/pokemon-details", {
+          navigation(`/pokemon-details/m/${pokemon.name}`, {
             replace: false,
-            state: { name: pokemon.name, image: pokemon.image },
           })
         }
       >
-        <PokemonImage src={pokemon.image} alt="Pokemon "></PokemonImage>
+        <PokemonImage
+          src={pokemon.sprites.front_default}
+          alt="Pokemon "
+        ></PokemonImage>
         <PokemonCardname>{pokemon.name}</PokemonCardname>
         <OwnedCard> RELEASE </OwnedCard>
       </Card>

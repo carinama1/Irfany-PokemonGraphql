@@ -1,4 +1,5 @@
 import { createMuiTheme, colors, responsiveFontSizes } from "@material-ui/core";
+import { kDangerColor, kMainColor } from "./constant";
 import typography from "./typography";
 
 let theme = createMuiTheme({
@@ -20,7 +21,8 @@ let theme = createMuiTheme({
     },
   },
   btn: {
-    primary: "#ffcb05",
+    primary: kMainColor,
+    danger: kDangerColor,
   },
   typography,
 });

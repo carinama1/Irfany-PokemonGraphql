@@ -180,3 +180,56 @@ export const PokeBall = ({ children }) => {
   `;
   return <PokeBallStyle>{children}</PokeBallStyle>;
 };
+
+export const PokeCatch = ({ children }) => {
+  const PokeBallStyle = styled.div`
+    width: 220px;
+    height: 220px;
+    display: inline-block;
+    margin: 20px 20px 16px;
+    position: relative;
+    border-radius: 50%;
+    animation: spin linear 2s infinite;
+    background-image: -moz-radial-gradient(
+        40% 40%,
+        circle,
+        rgba(0, 0, 0, 0.1) 40%,
+        rgba(0, 0, 0, 1) 100%
+      ),
+      -moz-linear-gradient(-90deg, #f33 45%, #333 45%, #3f3f3f 50%, #333 55%, #fff
+            55%);
+    background-image: -webkit-radial-gradient(
+        40% 40%,
+        circle,
+        rgba(0, 0, 0, 0.1) 40%,
+        rgba(0, 0, 0, 1) 100%
+      ),
+      -webkit-linear-gradient(-90deg, #f33 45%, #333 45%, #3f3f3f 50%, #333 55%, #fff
+            55%);
+    @media (max-width: 600px) {
+      width: 120;
+      height: 120;
+    }
+    ::before {
+      content: "";
+      display: block;
+      position: absolute;
+      z-index: 6;
+      width: 10%;
+      height: 10%;
+      background-color: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 0 1px #aaa, 0 0 0 10px #fff, 0 0 0 16px #3f3f3f;
+      margin: 45%;
+      @media (max-width: 600px) {
+        box-shadow: 0 0 0 1px #aaa, 0 0 0 2px #fff, 0 0 0 4px #3f3f3f;
+      }
+    }
+    @keyframes spin {
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+  `;
+  return <PokeBallStyle>{children}</PokeBallStyle>;
+};
