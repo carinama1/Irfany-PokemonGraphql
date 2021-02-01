@@ -124,7 +124,7 @@ const CatchingPage = ({ seeMyPokemon, pokemon, ...rest }) => {
     // setLoading(false);
     setLoading(true);
     setTimeout(() => {
-      if (Math.random() < 0.0000001) setSucces(false);
+      if (Math.random() < 0.5) setSucces(false);
       else {
         setSucces(true);
       }
