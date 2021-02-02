@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { Hidden, makeStyles } from "@material-ui/core";
 import TopBar from "./TopBar";
+import Footer from "./Footer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 100,
     [theme.breakpoints.down("sm")]: {
       paddingTop: 0,
+      paddingBottom: 52,
     },
   },
   contentContainer: {
@@ -48,6 +50,10 @@ const MainLayout = () => {
           </div>
         </div>
       </div>
+
+      <Hidden smUp>
+        <Footer />
+      </Hidden>
     </div>
   );
 };

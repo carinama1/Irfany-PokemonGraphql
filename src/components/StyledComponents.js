@@ -207,8 +207,8 @@ export const PokeCatch = ({ children }) => {
       -webkit-linear-gradient(-90deg, #f33 45%, #333 45%, #3f3f3f 50%, #333 55%, #fff
             55%);
     @media (max-width: 600px) {
-      width: 120;
-      height: 120;
+      width: 120px;
+      height: 120px;
     }
     ::before {
       content: "";

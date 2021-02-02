@@ -98,8 +98,14 @@ const InputStyle = styled.input`
 `;
 
 const Result = styled.img`
+  width: 400px;
+  height: 400px;
   animation: zoom 0.6s ease-in-out;
   transform: scale(0.8);
+  @media (max-width: 600px) {
+    width: 320px;
+    height: 320px;
+  }
   @keyframes zoom {
     0% {
       transform: scale(0.3);
@@ -108,6 +114,15 @@ const Result = styled.img`
       transform: scale(0.8);
     }
   }
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding: 20px 0px;
 `;
 
 const CatchingPage = ({ seeMyPokemon, pokemon, ...rest }) => {
@@ -124,7 +139,7 @@ const CatchingPage = ({ seeMyPokemon, pokemon, ...rest }) => {
     // setLoading(false);
     setLoading(true);
     setTimeout(() => {
-      if (Math.random() < 0.5) setSucces(false);
+      if (Math.random() < 0.1) setSucces(false);
       else {
         setSucces(true);
       }
@@ -162,13 +177,13 @@ const CatchingPage = ({ seeMyPokemon, pokemon, ...rest }) => {
   return (
     <Card>
       {loading && (
-        <Fragment>
+        <ContentWrapper>
           <PokeCatch></PokeCatch>
           <Typography variant="h1"> Catching Pokemon...</Typography>
-        </Fragment>
+        </ContentWrapper>
       )}
       {!loading && (
-        <Fragment>
+        <ContentWrapper>
           <Result src={succes ? GotchImage : FailedImage}></Result>
           <Typography style={{ textAlign: "center" }} variant="h1">
             {succes ? (
@@ -241,7 +256,7 @@ const CatchingPage = ({ seeMyPokemon, pokemon, ...rest }) => {
               SEE EM
             </Button>
           )}
-        </Fragment>
+        </ContentWrapper>
       )}
     </Card>
   );
