@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Button, capitalize, makeStyles } from "@material-ui/core";
+import { Button, capitalize, Hidden, makeStyles } from "@material-ui/core";
 import Page from "../../components/Page";
 import { useNavigate, useParams } from "react-router";
 import PokemonHeader from "./components/PokemonHeader";
@@ -9,6 +9,7 @@ import PokemonAbilities from "./components/PokemonAbilities";
 import { StickyComponent } from "../../components/StyledComponents";
 import ReleasingPage from "./components/ReleasingPage";
 import { Service } from "../../localbase/dbServices";
+import MobileHeader from "../../components/MobileHeader";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
     padding: "10px 24px",
     boxShadow: "0 1px 6px 0 rgba(49, 53, 59, 0.12)",
     borderRadius: 12,
-    fontSize: 32,
     color: "white",
+    fontSize: "inherit",
     background: theme.btn.danger,
     "&:hover": {
       background: theme.btn.danger,
@@ -47,7 +48,11 @@ const FooterRelease = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  font-size: 32px;
   justify-content: center;
+  @media (max-width: 600px) {
+    font-size: 1rem;
+  }
 `;
 
 const PokemonView = () => {
@@ -91,6 +96,10 @@ const PokemonView = () => {
           className={classes.root}
           title={(pokemon && capitalize(pokemon.name)) || "Pokemon"}
         >
+          <Hidden smUp>
+            <MobileHeader />
+            <div style={{ marginBottom: 42 }}></div>
+          </Hidden>
           {isReleasing && (
             <ReleasingPage
               name={pokemon.name}

@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { capitalize, makeStyles } from "@material-ui/core";
+import { capitalize, Hidden, makeStyles } from "@material-ui/core";
 import Page from "../../components/Page";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_POKEMON_BY_NAME } from "../../graphql/get-pokemons";
@@ -10,6 +10,7 @@ import Loading from "../../components/Loading";
 import PokemonAbilities from "./components/PokemonAbilities";
 import { PokeBall, StickyComponent } from "../../components/StyledComponents";
 import CatchingPage from "./components/CatchingPage";
+import MobileHeader from "../../components/MobileHeader";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -75,11 +76,15 @@ const PokemonView = () => {
       {isLoading && <Loading />}
       {!isLoading && (
         <Page className={classes.root} title={capitalize(location.state.name)}>
+          <Hidden smUp>
+            <MobileHeader />
+          </Hidden>
           {isCatching && (
             <CatchingPage seeMyPokemon={seeMyPokemon} pokemon={pokemon} />
           )}
           {!isCatching && (
             <Fragment>
+              <div style={{ marginBottom: 42 }}></div>
               <PokemonHeader
                 name={pokemon.name}
                 image={pokemon.sprites.front_default}
