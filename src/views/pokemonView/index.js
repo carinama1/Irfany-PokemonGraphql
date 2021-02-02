@@ -96,7 +96,7 @@ const PokemonView = () => {
                 moves={pokemon.moves}
               />
               <StickyComponent>
-                <div onClick={() => setIsCatching(true)}>
+                <div className="poke-ball" onClick={() => setIsCatching(true)}>
                   <PokeBall />
                 </div>
               </StickyComponent>

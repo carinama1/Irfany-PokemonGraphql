@@ -74,7 +74,9 @@ const PokemonCard = ({ pokemon, ...rest }) => {
         }
       >
         <PokemonImage src={pokemon.image} alt="Pokemon "></PokemonImage>
-        <PokemonCardname>{pokemon.name}</PokemonCardname>
+        <PokemonCardname className="pokemon-name">
+          {pokemon.name}
+        </PokemonCardname>
         <OwnedCard> CAPTURED : {pokemon.owned}</OwnedCard>
       </Card>
     </CardContainer>

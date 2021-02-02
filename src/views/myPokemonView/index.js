@@ -8,8 +8,8 @@ import Loading from "../../components/Loading";
 import PokemonAbilities from "./components/PokemonAbilities";
 import { StickyComponent } from "../../components/StyledComponents";
 import ReleasingPage from "./components/ReleasingPage";
-import { Service } from "../../localbase/dbServices";
 import MobileHeader from "../../components/MobileHeader";
+import { DbServices } from "../../localbase/indexedDbDexie";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,9 +65,9 @@ const PokemonView = () => {
 
   useEffect(() => {
     const { id } = param;
-    Service.getMyPokemonById(id).then((data) => {
+    DbServices.getMyPokemonById(parseInt(id)).then((data) => {
       if (!data) {
-        navigation("/my-pokemon-list", { replace: false });
+        navigation("/my-pokemon-list", { replace: true });
       } else {
         setPokemon(data);
         setIsLoading(false);
@@ -78,8 +78,8 @@ const PokemonView = () => {
 
   const releasePokemon = () => {
     const { id } = param;
-    Service.releasePokemon(id)
-      .then((data) => {
+    DbServices.releasePokemon(parseInt(id))
+      .then(() => {
         seIsReleasing(true);
       })
       .catch((err) => {
@@ -94,7 +94,7 @@ const PokemonView = () => {
       {!isLoading && (
         <Page
           className={classes.root}
-          title={(pokemon && capitalize(pokemon.name)) || "Pokemon"}
+          title={(pokemon && capitalize(pokemon.uniqueName)) || "Pokemon"}
         >
           <Hidden smUp>
             <MobileHeader />
@@ -102,7 +102,7 @@ const PokemonView = () => {
           </Hidden>
           {isReleasing && (
             <ReleasingPage
-              name={pokemon.name}
+              name={pokemon.uniqueName}
               image={pokemon.sprites.front_default}
             />
           )}

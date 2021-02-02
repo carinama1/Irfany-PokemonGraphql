@@ -7,7 +7,7 @@ import PokemonCard from "./components/PokemonCard";
 import { ListStyle } from "./_listStyle";
 import { PokeBald } from "../../components/StyledComponents";
 import Loading from "../../components/Loading";
-import { Service } from "../../localbase/dbServices";
+import { DbServices } from "../../localbase/indexedDbDexie";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,15 +36,16 @@ const ListView = () => {
 
   useEffect(() => {
     getAllPokemon();
+    // eslint-disable-next-line
   }, []);
 
   const getAllPokemon = () => {
-    Service.getMyPokemons()
+    DbServices.getMyPokemons()
       .then((data) => {
         setMyDbPokemon(data || []);
       })
       .catch((err) => {
-        console.log({ err });
+        console.log({ error });
       });
   };
 

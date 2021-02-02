@@ -67,7 +67,7 @@ const PokemonCard = ({ pokemon, ...rest }) => {
     <CardContainer>
       <Card
         onClick={() =>
-          navigation(`/pokemon-details/m/${pokemon.name}`, {
+          navigation(`/pokemon-details/m/${pokemon.id}`, {
             replace: false,
           })
         }
@@ -76,7 +76,7 @@ const PokemonCard = ({ pokemon, ...rest }) => {
           src={pokemon.sprites.front_default}
           alt="Pokemon "
         ></PokemonImage>
-        <PokemonCardname>{pokemon.name}</PokemonCardname>
+        <PokemonCardname>{pokemon.uniqueName}</PokemonCardname>
         <OwnedCard> RELEASE </OwnedCard>
       </Card>
     </CardContainer>
