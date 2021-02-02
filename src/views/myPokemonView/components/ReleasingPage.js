@@ -30,7 +30,12 @@ const Card = styled.div`
 const Result = styled.img`
   animation: zoom 0.6s ease-in-out;
   margin: 32px 0px;
+  width: 360px;
   height: 360px;
+  @media (max-width: 600px) {
+    width: 320px;
+    height: 320px;
+  }
 `;
 
 const ReleasingPage = ({ ...rest }) => {

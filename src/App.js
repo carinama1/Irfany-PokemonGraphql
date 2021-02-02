@@ -20,12 +20,6 @@ const App = () => {
       <Suspense fallback={<Loading />}>
         <ApolloProvider client={client}>
           <GlobalStyles />
-          {/* <SnackbarComponent
-            isSnackBarOpen={isSnackBarOpen}
-            succes={isSnackBarSucces}
-            handleSnackBarClose={() => setIsSnackbarOpen(false)}
-            message={snackbarMessage}
-          /> */}
           {routing}
         </ApolloProvider>
       </Suspense>
