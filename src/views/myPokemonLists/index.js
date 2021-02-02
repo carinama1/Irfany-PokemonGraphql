@@ -4,9 +4,9 @@ import Page from "../../components/Page";
 import PokemonCard from "./components/PokemonCard";
 import { ListStyle } from "./_listStyle";
 import Loading from "../../components/Loading";
-import { Service } from "../../localbase/dbServices";
 
 import EmptyPage from "./components/EmptyPage";
+import { DbServices } from "../../localbase/indexedDbDexie";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +21,7 @@ const MyPokemonLists = () => {
   const [pokemons, setPokemons] = useState([]);
 
   useEffect(() => {
-    Service.getMyPokemons()
+    DbServices.getMyPokemons()
       .then((data) => {
         setPokemons(data);
         setIsLoading(false);
@@ -30,8 +30,6 @@ const MyPokemonLists = () => {
         console.log({ err });
       });
   }, []);
-
-  console.log(pokemons.length);
 
   return (
     <Fragment>

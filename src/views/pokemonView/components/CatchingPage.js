@@ -2,10 +2,9 @@ import React, { Fragment, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Button, Typography, makeStyles } from "@material-ui/core";
 import { PokeCatch } from "../../../components/StyledComponents";
-import uniqid from "uniqid";
-import { Service } from "../../../localbase/dbServices";
 import { kDangerColor, kMainColor } from "../../../theme/constant";
 import CreateIcon from "@material-ui/icons/Create";
+import { DbServices } from "../../../localbase/indexedDbDexie";
 
 const FailedImage = "/static/images/Failed.png";
 const GotchImage = "/static/images/Gotcha.png";
@@ -55,7 +54,6 @@ const PokemonName = ({ children, edit, error }) => {
     margin-bottom: 20px;
     font-weight: bold;
     border: ${border};
-    text-transform: capitalize;
     @media (max-width: 600px) {
       font-size: 1.4rem;
       width: 240px;
@@ -140,7 +138,7 @@ const CatchingPage = ({ seeMyPokemon, pokemon, ...rest }) => {
     // setLoading(false);
     setLoading(true);
     setTimeout(() => {
-      if (Math.random() < 0.1) setSucces(false);
+      if (Math.random() < 0.5) setSucces(false);
       else {
         setSucces(true);
       }
@@ -154,21 +152,25 @@ const CatchingPage = ({ seeMyPokemon, pokemon, ...rest }) => {
   };
 
   const handleSubmit = () => {
-    Service.getMyPokemonById(pokemonName).then((data) => {
-      if (data) {
-        setError("Seems like you have a duplicate name");
-      } else {
-        catchPokemon();
-      }
-    });
+    DbServices.getMyPokemonByName(pokemonName)
+      .then((data) => {
+        if (data) {
+          setError("Seems like you have a duplicate name");
+        } else {
+          catchPokemon();
+        }
+      })
+      .catch((err) => {
+        console.log({ err });
+      });
   };
 
   const catchPokemon = () => {
-    const id = uniqid();
-    const myNewPokemon = { ...pokemon, id, name: pokemonName };
-    Service.catchPokemon(myNewPokemon)
-      .then(() => {
-        seeMyPokemon(pokemonName);
+    const myNewPokemon = { ...pokemon, uniqueName: pokemonName };
+    delete myNewPokemon["id"];
+    DbServices.catchPokemon(myNewPokemon)
+      .then((data) => {
+        seeMyPokemon(parseInt(data));
       })
       .catch((err) => {
         console.log({ err });
@@ -254,7 +256,7 @@ const CatchingPage = ({ seeMyPokemon, pokemon, ...rest }) => {
           )}
           {succes && (
             <Button className={classes.buttonMain} onClick={handleSubmit}>
-              SEE EM
+              KEEP
             </Button>
           )}
         </ContentWrapper>

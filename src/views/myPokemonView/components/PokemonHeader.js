@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Tag } from "../../../components/StyledComponents";
 import { kDangerColor, kMainColor } from "../../../theme/constant";
 import CreateIcon from "@material-ui/icons/Create";
-import { Service } from "../../../localbase/dbServices";
+import { DbServices } from "../../../localbase/indexedDbDexie";
 
 const CardContainer = styled.div`
   display: flex;
@@ -85,32 +85,43 @@ const InputStyle = styled.input`
 const PokemonHeader = ({ pokemon, ...rest }) => {
   // Naming
   const [editMode, setEditMode] = useState(false);
+  const [firstLoad, setFirstLoad] = useState(true);
   const [error, setError] = useState("");
-  const [pokemonName, setPokemonName] = useState(pokemon.name);
+  const [pokemonName, setPokemonName] = useState(pokemon.uniqueName);
 
   useEffect(() => {
     setError("");
-    handleSubmit();
+    if (!firstLoad) {
+      handleSubmit();
+    }
+    setFirstLoad(false);
     // eslint-disable-next-line
   }, [editMode]);
 
   const handleChangeName = () => {
-    console.log("handlechangename");
-    Service.releasePokemon(pokemon.name).then(() => {
-      Service.catchPokemon({ ...pokemon, name: pokemonName }).then();
-    });
+    DbServices.updatePokemonNameById(pokemon.id, pokemonName)
+      .then((data) => {
+        // Updated Sucesfully
+      })
+      .catch((err) => {
+        console.log({ err });
+      });
   };
 
   const handleSubmit = () => {
     if (!editMode) {
-      if (pokemonName !== pokemon.name) {
-        Service.getMyPokemonById(pokemonName).then((data) => {
-          if (data) {
-            setError("Seems like you have a duplicate name");
-          } else {
-            handleChangeName();
-          }
-        });
+      if (pokemonName !== pokemon.uniqueName) {
+        DbServices.getMyPokemonByName(pokemonName)
+          .then((data) => {
+            if (data) {
+              setError("Seems like you have a duplicate name");
+            } else {
+              handleChangeName();
+            }
+          })
+          .catch((err) => {
+            console.log({ err });
+          });
       }
     }
   };
