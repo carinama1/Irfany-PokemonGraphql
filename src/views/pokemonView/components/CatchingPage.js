@@ -2,12 +2,13 @@ import React, { Fragment, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Button, Typography, makeStyles } from "@material-ui/core";
 import { PokeCatch } from "../../../components/StyledComponents";
-import FailedImage from "../../../images/Failed.png";
-import GotchImage from "../../../images/Gotcha.png";
 import uniqid from "uniqid";
 import { Service } from "../../../localbase/dbServices";
 import { kDangerColor, kMainColor } from "../../../theme/constant";
 import CreateIcon from "@material-ui/icons/Create";
+
+const FailedImage = "/static/images/Failed.png";
+const GotchImage = "/static/images/Gotcha.png";
 
 const useStyles = makeStyles((theme) => ({
   buttonMain: {

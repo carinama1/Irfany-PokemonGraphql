@@ -1,10 +1,12 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Box, Container, makeStyles } from "@material-ui/core";
+import { Container, makeStyles } from "@material-ui/core";
 import Page from "../../components/Page";
 import PokemonCard from "./components/PokemonCard";
 import { ListStyle } from "./_listStyle";
 import Loading from "../../components/Loading";
 import { Service } from "../../localbase/dbServices";
+
+import EmptyPage from "./components/EmptyPage";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +31,8 @@ const MyPokemonLists = () => {
       });
   }, []);
 
+  console.log(pokemons.length);
+
   return (
     <Fragment>
       {isLoading && <Loading />}
@@ -36,18 +40,24 @@ const MyPokemonLists = () => {
         <Page className={classes.root} title="My Pokemon List">
           <Fragment>
             <Container maxWidth="lg">
-              <Box style={{ marginBottom: 40 }}></Box>
-              <ListStyle>
-                {pokemons &&
-                  pokemons.length >= 0 &&
-                  pokemons.map((pokemon, index) => {
-                    return (
-                      <Fragment key={`item-${index}`}>
-                        <PokemonCard pokemon={pokemon} />
-                      </Fragment>
-                    );
-                  })}
-              </ListStyle>
+              {pokemons && pokemons.length === 0 ? (
+                <EmptyPage />
+              ) : (
+                <Fragment>
+                  <div style={{ marginTop: 20 }}></div>
+                  <ListStyle>
+                    {pokemons &&
+                      pokemons.length >= 0 &&
+                      pokemons.map((pokemon, index) => {
+                        return (
+                          <Fragment key={`item-${index}`}>
+                            <PokemonCard pokemon={pokemon} />
+                          </Fragment>
+                        );
+                      })}
+                  </ListStyle>
+                </Fragment>
+              )}
             </Container>
           </Fragment>
         </Page>

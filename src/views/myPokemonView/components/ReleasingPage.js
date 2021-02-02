@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import styled from "@emotion/styled";
 import { Button, Typography, makeStyles } from "@material-ui/core";
-import FailedImage from "../../../images/kekBye.gif";
 import { useNavigate } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
@@ -45,7 +44,7 @@ const ReleasingPage = ({ ...rest }) => {
   return (
     <Card>
       <Fragment>
-        <Result src={FailedImage}></Result>
+        <Result src={"/static/images/kekBye.gif"}></Result>
         <Typography style={{ textAlign: "center" }} variant="h1">
           <span>
             GOOD BYE! <br />
