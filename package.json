@@ -15,16 +15,19 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/user-event": "^12.6.2",
     "apollo-boost": "^0.4.9",
+    "babel-loader": "^8.1.0",
+    "core-js": "^3.8.3",
     "express": "^4.17.1",
-    "fs": "0.0.1-security",
     "graphql": "^15.5.0",
     "graphql-tag": "^2.11.0",
     "history": "^5.0.0",
+    "html-webpack-plugin": "^4.5.1",
     "idb": "^6.0.0",
     "ignore-styles": "^5.0.1",
     "lodash": "^4.17.19",
     "path": "^0.12.7",
     "react": "^17.0.1",
+    "react-async-ssr": "^0.7.2",
     "react-dom": "^17.0.1",
     "react-feather": "^2.0.8",
     "react-helmet": "^6.1.0",
@@ -32,15 +35,15 @@
     "react-router-dom": "^6.0.0-beta.0",
     "react-scripts": "4.0.1",
     "uniqid": "^5.2.0",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^0.2.4",
+    "webpack-dev-server": "^3.11.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "integration-test": "cypress open",
     "test": "react-scripts test",
-    "build:ssr": "react-scripts build node server/index.js",
-    "ssr": "node server/index.js",
+    "dev": "webpack serve --mode=development",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -66,6 +69,7 @@
     "apollo-mocked-provider": "^5.0.0",
     "cypress": "^6.4.0",
     "dexie": "^3.0.3",
-    "fake-indexeddb": "^3.1.2"
+    "fake-indexeddb": "^3.1.2",
+    "webpack-cli": "^4.5.0"
   }
 }

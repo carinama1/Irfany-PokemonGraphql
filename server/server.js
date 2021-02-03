@@ -4,10 +4,10 @@ import path from "path";
 
 import React from "react";
 import ReactDOMServer from "react-dom/server";
-import { StaticRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
+const { renderToStringAsync } = require("react-async-ssr");
 
 import App from "../src/App";
-import routes from "../src/routes";
 
 const PORT = 8001;
 
@@ -16,14 +16,17 @@ const app = express();
 app.use("^/$", (req, res, next) => {
   const context = {};
 
-  const toRender = (
-    <StaticRouter location={req.url}>
-      <App />
-    </StaticRouter>
-  );
+  const render = async () => {
+    const html = await renderToStringAsync(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
 
-  console.log(toRender);
-  const app = ReactDOMServer.renderToString(toRender);
+    return html;
+  };
+
+  const app = ReactDOMServer.renderToString(render);
 
   const indexFile = path.resolve("./build/index.html");
   fs.readFileSync(indexFile, "utf8", (err, data) => {
