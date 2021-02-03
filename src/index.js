@@ -7,7 +7,7 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 // https://codepen.io/bad_printer/pen/Einpz
 
-ReactDOM.render(
+ReactDOM.hydrate(
   <BrowserRouter>
     <App />
   </BrowserRouter>,
