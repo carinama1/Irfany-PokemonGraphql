@@ -12,6 +12,7 @@ import { GET_POKEMONS, GET_POKEMON_BY_NAME } from "./get-pokemons";
 import { ThemeProvider } from "@material-ui/core";
 import theme from "../theme";
 import PokemonLists from "../views/pokemonLists";
+import { catched } from "../utils/rng";
 
 afterEach(cleanup);
 
@@ -157,5 +158,10 @@ test("Make sure user can catch Pokemon Correctly ", async () => {
       </MockedProvider>
     </ThemeProvider>
   );
-  debug();
+});
+
+test("Make sure catches returns boolean", async () => {
+  const pokemonCatched = catched();
+
+  expect(typeof pokemonCatched === "boolean").toBeTruthy();
 });

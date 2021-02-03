@@ -5,6 +5,7 @@ import { PokeCatch } from "../../../components/StyledComponents";
 import { kDangerColor, kMainColor } from "../../../theme/constant";
 import CreateIcon from "@material-ui/icons/Create";
 import { DbServices } from "../../../localbase/indexedDbDexie";
+import { catched } from "../../../utils/rng";
 
 const FailedImage = "/static/images/Failed.png";
 const GotchImage = "/static/images/Gotcha.png";
@@ -138,12 +139,17 @@ const CatchingPage = ({ seeMyPokemon, pokemon, ...rest }) => {
     // setLoading(false);
     setLoading(true);
     setTimeout(() => {
-      if (Math.random() < 0.5) setSucces(false);
+      console.log(catched());
+      if (catched()) setSucces(false);
       else {
         setSucces(true);
       }
       setLoading(false);
     }, 1200);
+    const abortController = new AbortController();
+    return function cleanup() {
+      abortController.abort();
+    };
     // eslint-disable-next-line
   }, [catching]);
 

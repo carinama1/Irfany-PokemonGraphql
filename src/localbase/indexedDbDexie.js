@@ -1,13 +1,6 @@
 import Dexie from "dexie";
-Dexie.dependencies.indexedDB = require("fake-indexeddb");
-Dexie.dependencies.IDBKeyRange = require("fake-indexeddb/lib/FDBKeyRange");
 
 const db = new Dexie("PokemonsDexie");
-
-db.version(1).stores({
-  pokemon: "++id, &uniqueName",
-});
-
 db.version(2).stores({
   pokemon: "++id, &uniqueName", // Change indexes
 });
