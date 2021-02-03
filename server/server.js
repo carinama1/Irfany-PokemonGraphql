@@ -26,7 +26,7 @@ app.use("^/$", (req, res, next) => {
   const app = ReactDOMServer.renderToString(toRender);
 
   const indexFile = path.resolve("./build/index.html");
-  fs.readFile(indexFile, "utf8", (err, data) => {
+  fs.readFileSync(indexFile, "utf8", (err, data) => {
     if (err) {
       console.error("Something went wrong:", err);
       return res.status(500).send("Oops, better luck next time!");
