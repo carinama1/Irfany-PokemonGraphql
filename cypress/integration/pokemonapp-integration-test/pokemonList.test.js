@@ -1,4 +1,4 @@
-describe("Handle Catch The Correct Pokemon", () => {
+describe("Handle Get The Correct Pokemon", () => {
   const pokemonName = "bulbasaur";
   it("Rendering the correct pokemon", () => {
     cy.visit("http://localhost:3000/");
