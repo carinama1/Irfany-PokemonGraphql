@@ -8,23 +8,20 @@ import { MemoryRouter } from "react-router-dom";
 
 import App from "../src/App";
 
-const PORT = 8001;
+const PORT = process.env.PORT || 8001;
 
 const app = express();
 
 app.use(express.static("build"));
 app.use("*", (req, res, next) => {
   res.type("html");
-  console.log("1");
   const context = {};
 
-  console.log("2");
   const renderThis = (
     <MemoryRouter context={context} location={req.url}>
       <App />
     </MemoryRouter>
   );
-  console.log("3");
 
   const app = ReactDOMServer.renderToString(renderThis);
 

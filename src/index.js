@@ -6,7 +6,8 @@ import reportWebVitals from "./reportWebVitals";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 // https://codepen.io/bad_printer/pen/Einpz
-ReactDOM.hydrate(
+
+ReactDOM.render(
   <BrowserRouter>
     <App />
   </BrowserRouter>,
