@@ -1,12 +1,13 @@
-import React, { lazy } from "react";
+import React from "react";
 import { Navigate } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import NotFoundView from "./views/error/NotFoundView";
+import loadable from "@loadable/component";
 
-const LazyPokemonListView = lazy(() => import("./views/pokemonLists"));
-const LazyPokemonView = lazy(() => import("./views/pokemonView"));
-const LazyMyPokemonView = lazy(() => import("./views/myPokemonView"));
-const LazyMyPokemonListsView = lazy(() => import("./views/myPokemonLists"));
+const LazyPokemonListView = loadable(() => import("./views/pokemonLists"));
+const LazyPokemonView = loadable(() => import("./views/pokemonView"));
+const LazyMyPokemonView = loadable(() => import("./views/myPokemonView"));
+const LazyMyPokemonListsView = loadable(() => import("./views/myPokemonLists"));
 
 const routes = [
   {

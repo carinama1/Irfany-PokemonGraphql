@@ -9,7 +9,7 @@ import styled from "@emotion/styled";
 import Loading from "../../components/Loading";
 import PokemonAbilities from "./components/PokemonAbilities";
 import { PokeBall, StickyComponent } from "../../components/StyledComponents";
-import CatchingPage from "./components/CatchingPage";
+import { CatchingPage } from "./components/CatchingPage";
 import MobileHeader from "../../components/MobileHeader";
 
 const useStyles = makeStyles(() => ({

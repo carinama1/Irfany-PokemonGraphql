@@ -125,7 +125,7 @@ const ContentWrapper = styled.div`
   padding: 20px 0px;
 `;
 
-const CatchingPage = ({ seeMyPokemon, pokemon, ...rest }) => {
+export const CatchingPage = ({ seeMyPokemon, pokemon, ...rest }) => {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
   const [succes, setSucces] = useState(false);
@@ -270,5 +270,3 @@ const CatchingPage = ({ seeMyPokemon, pokemon, ...rest }) => {
     </Card>
   );
 };
-
-export default CatchingPage;
