@@ -1,8 +1,8 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const nodeExternals = require("webpack-node-externals");
 
 module.exports = {
-  entry: ["@babel/polyfill", "./src/index.js"],
+  entry: "./server/server.js",
   output: {
     path: path.resolve(__dirname, "build"),
     filename: "bundle.js",
@@ -17,5 +17,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [new HtmlWebpackPlugin()],
+  externals: [nodeExternals()],
 };

@@ -5,7 +5,6 @@ import path from "path";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
 import { MemoryRouter } from "react-router-dom";
-const { renderToStringAsync } = require("react-async-ssr");
 
 import App from "../src/App";
 
@@ -13,39 +12,34 @@ const PORT = 8001;
 
 const app = express();
 
-app.use("^/$", (req, res, next) => {
+app.use(express.static("build"));
+app.use("*", (req, res, next) => {
+  res.type("html");
+  console.log("1");
   const context = {};
 
-  const render = async () => {
-    const html = await renderToStringAsync(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    );
+  console.log("2");
+  const renderThis = (
+    <MemoryRouter context={context} location={req.url}>
+      <App />
+    </MemoryRouter>
+  );
+  console.log("3");
 
-    return html;
-  };
-
-  const app = ReactDOMServer.renderToString(render);
+  const app = ReactDOMServer.renderToString(renderThis);
 
   const indexFile = path.resolve("./build/index.html");
-  fs.readFileSync(indexFile, "utf8", (err, data) => {
-    if (err) {
-      console.error("Something went wrong:", err);
-      return res.status(500).send("Oops, better luck next time!");
-    }
-
-    if (context.status === 404) {
-      res.status(404);
-    }
-
-    return res.send(
-      data.replace('<div id="root"></div>', `<div id="root">${app}</div>`)
-    );
-  });
+  const data = fs.readFileSync(indexFile);
+  if (context.status === 404) {
+    console.log("seomthing happened");
+    res.status(404);
+  }
+  return res.send(
+    data
+      .toString()
+      .replace('<div id="root"></div>', `<div id="root">${app}</div>`)
+  );
 });
-
-app.use(express.static(path.resolve(__dirname, "..", "build")));
 
 app.listen(PORT, () => {
   console.log(`App launched on ${PORT}`);

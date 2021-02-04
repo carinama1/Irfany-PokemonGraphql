@@ -1,12 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
 import { BrowserRouter } from "react-router-dom";
+import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 // https://codepen.io/bad_printer/pen/Einpz
-
 ReactDOM.hydrate(
   <BrowserRouter>
     <App />
