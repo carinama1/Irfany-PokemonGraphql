@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Tag } from "../../../components/StyledComponents";
 import { kDangerColor, kMainColor } from "../../../theme/constant";
 import CreateIcon from "@material-ui/icons/Create";
 import { DbServices } from "../../../localbase/indexedDbDexie";
+import { MyPokemonContext } from "../../context/pokemonContext";
 
 const CardContainer = styled.div`
   display: flex;
@@ -82,11 +83,12 @@ const InputStyle = styled.input`
   }
 `;
 
-const PokemonHeader = ({ pokemon, ...rest }) => {
+const PokemonHeader = () => {
   // Naming
   const [editMode, setEditMode] = useState(false);
   const [firstLoad, setFirstLoad] = useState(true);
   const [error, setError] = useState("");
+  const { pokemon } = useContext(MyPokemonContext);
   const [pokemonName, setPokemonName] = useState(pokemon.uniqueName);
 
   useEffect(() => {

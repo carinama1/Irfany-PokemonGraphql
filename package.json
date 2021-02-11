@@ -44,8 +44,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "integration-test": "cypress open",
     "ssr": "npm run build && webpack --mode=production --config webpack.server.js && node build/bundle.js",
+    "integration-test": "cypress open",
     "test": "react-scripts test"
   },
   "eslintConfig": {

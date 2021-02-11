@@ -10,6 +10,7 @@ import { StickyComponent } from "../../components/StyledComponents";
 import ReleasingPage from "./components/ReleasingPage";
 import MobileHeader from "../../components/MobileHeader";
 import { DbServices } from "../../localbase/indexedDbDexie";
+import { MyPokemonContext } from "../context/pokemonContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -108,25 +109,21 @@ const PokemonView = () => {
           )}
           {!isReleasing && (
             <Fragment>
-              <PokemonHeader
-                pokemon={pokemon}
-                types={pokemon.types}
-              ></PokemonHeader>
-              <Divider />
-              <PokemonAbilities
-                abilities={pokemon.abilities}
-                moves={pokemon.moves}
-              />
-              <StickyComponent>
-                <FooterRelease>
-                  <Button
-                    className={classes.buttonMain}
-                    onClick={releasePokemon}
-                  >
-                    RELEASE
-                  </Button>
-                </FooterRelease>
-              </StickyComponent>
+              <MyPokemonContext.Provider value={{ pokemon, setPokemon }}>
+                <PokemonHeader />
+                <Divider />
+                <PokemonAbilities />
+                <StickyComponent>
+                  <FooterRelease>
+                    <Button
+                      className={classes.buttonMain}
+                      onClick={releasePokemon}
+                    >
+                      RELEASE
+                    </Button>
+                  </FooterRelease>
+                </StickyComponent>
+              </MyPokemonContext.Provider>
             </Fragment>
           )}
         </Page>

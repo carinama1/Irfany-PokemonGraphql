@@ -37,7 +37,7 @@ const Result = styled.img`
   }
 `;
 
-const ReleasingPage = ({ ...rest }) => {
+const ReleasingPage = () => {
   const classes = useStyles();
   const navigation = useNavigate();
 

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "@emotion/styled";
 import { Tag } from "../../../components/StyledComponents";
 import { capitalize } from "@material-ui/core";
+import { MyPokemonContext } from "../../context/pokemonContext";
 
 const CardContainer = styled.div`
   display: flex;
@@ -47,22 +48,23 @@ const PokemonName = styled.div`
   overflow: hidden;
 `;
 
-const PokemonAbilities = ({ abilities, moves }) => {
+const PokemonAbilities = () => {
+  const { pokemon } = useContext(MyPokemonContext);
   return (
     <CardContainer>
       <PokemonName>Abilities</PokemonName>
       {/* <Tag>Abilities</Tag> */}
       <Card>
-        {abilities &&
-          abilities.map(({ ability }, index) => {
+        {pokemon.abilities &&
+          pokemon.abilities.map(({ ability }, index) => {
             return <Tag key={`item-${index}`}>{capitalize(ability.name)}</Tag>;
           })}
       </Card>
       <PokemonName style={{ marginTop: 0 }}>Moves</PokemonName>
       {/* <Tag>Moves</Tag> */}
       <Card>
-        {moves &&
-          moves.map(({ move }, index) => {
+        {pokemon.moves &&
+          pokemon.moves.map(({ move }, index) => {
             return <Tag key={`item-${index}`}>{capitalize(move.name)}</Tag>;
           })}
       </Card>
